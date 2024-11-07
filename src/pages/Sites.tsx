@@ -8,17 +8,13 @@ import SearchSite from '../components/SearchSite';
 import PopUpCardCreateSite from '../components/PopUpCardCreateSite';
 import DownloadSiteList from '../components/DownloadSiteList';
 
-
-
-const Websites: React.FC = () => {
+const sites: React.FC = () => {
     const [popUpCreateSite, setPopUpCreateSite] = useState(false);
     const [isAsideOpen, setAsideOpen] = useState<boolean>(false);
     const [loadSite, setLoadSite] = useState(false);
     const [isDownloadSitesPopupVisible, setIsDownloadSitesPopupVisible] = useState<boolean>(false);
-    const navigate = useNavigate();
-
-
     const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
 
     const toggleAside = () => {
         setAsideOpen(!isAsideOpen);
@@ -36,12 +32,10 @@ const Websites: React.FC = () => {
         const handleResize = () => {
             setAsideOpen(window.innerWidth >= 768);
         };
-
         handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
 
     return (
         <div className={`flex flex-col min-h-screen transition-transform duration-300 ${isAsideOpen ? 'mr-[150px]' : 'mr-0'}`}>
@@ -57,7 +51,13 @@ const Websites: React.FC = () => {
                         <span className="ml-2 hidden md:inline">Add Site</span>
                     </button>
                     {popUpCreateSite && (
-                        <PopUpCardCreateSite onClose={() => setPopUpCreateSite(false)} setLoadSite={setLoadSite} loadSite={loadSite} />
+                        <PopUpCardCreateSite
+                            onClose={() => setPopUpCreateSite(false)}
+                            setLoadSite={setLoadSite}
+                            loadSite={loadSite}
+                            x={0}  // ניתן לעדכן את הקואורדינטות
+                            y={0}  // ניתן לעדכן את הקואורדינטות
+                        />
                     )}
                     <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row items-center md:ml-4 md:flex-wrap">
                         <button
@@ -75,9 +75,7 @@ const Websites: React.FC = () => {
 
                 {isDownloadSitesPopupVisible && (
                     <DownloadSiteList setIsDownloadPopupVisible={setIsDownloadSitesPopupVisible}/>
-                )
-                    
-                }
+                )}
 
                 <div className="container mx-auto bg-white shadow-md rounded-lg p-6 max-w-full">
                     <TableSide loadSite={loadSite} setLoadSite={setLoadSite} />
@@ -118,4 +116,4 @@ const Websites: React.FC = () => {
     );
 };
 
-export default Websites;
+export default sites;

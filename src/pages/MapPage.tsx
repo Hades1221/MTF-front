@@ -6,12 +6,12 @@ import Map from '../components/Map';
 import { useNavigate } from 'react-router-dom';
 import CreateSitePopup from '../components/CreateSiteOnMap';
 
-
 const MapPage: React.FC = () => {
   const [isAsideOpen, setAsideOpen] = useState<boolean>(false);
   const [showModal, setShowModal] = useState(false);
-  const [showSiteModal, setShowSireModal] = useState(false);
+  const [showSiteModal, setShowSiteModal] = useState(false);
   const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null);
+  const [loadSite, setLoadSite] = useState<boolean>(false); // הוספנו את loadSite
   const navigate = useNavigate();
 
   const toggleAside = () => {
@@ -25,11 +25,10 @@ const MapPage: React.FC = () => {
   };
 
   const handleRightClick = (event: React.MouseEvent) => {
-    event.preventDefault(); 
-    setPopupPosition({ x: event.clientX, y: event.clientY }); 
-    setShowSireModal(true); 
+    event.preventDefault();
+    setPopupPosition({ x: event.clientX, y: event.clientY });
+    setShowSiteModal(true);
   };
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,9 +59,11 @@ const MapPage: React.FC = () => {
       {/* Popup for creating a new site */}
       {showSiteModal && popupPosition && (
         <CreateSitePopup
-          onClose={() => setShowSireModal(false)}
-          position={popupPosition} /
-        >
+          onClose={() => setShowSiteModal(false)}
+          position={popupPosition}
+          loadSite={loadSite} // שולח את loadSite
+          setLoadSite={setLoadSite} // שולח את setLoadSite
+        />
       )}
 
       {/* Logout Modal */}

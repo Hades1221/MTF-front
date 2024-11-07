@@ -15,7 +15,6 @@ const PopUpCardCreateSite: React.FC<PopUpCardCreateSiteProps> = ({ onClose, setL
   const [latitudeCoordinate, setLatitudeCoordinate] = useState<number>(x);
   const [longitudeCoordinate, setLongitudeCoordinate] = useState<number>(y);
 
-
   const popUpRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -89,39 +88,37 @@ const PopUpCardCreateSite: React.FC<PopUpCardCreateSiteProps> = ({ onClose, setL
             <label htmlFor="latitude" className="block text-sm font-medium text-gray-700">Latitude Coordinate:</label>
             <input
               id="latitude"
-              type="number"  // שינוי ל-type number
+              type="number"
               value={latitudeCoordinate}
-              onChange={(event) => setLatitudeCoordinate(Number(event.target.value) || 0)}  // המרה למספר
+              onChange={(event) => setLatitudeCoordinate(Number(event.target.value) || 0)}
               required
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-
           <div className="mb-4">
             <label htmlFor="longitude" className="block text-sm font-medium text-gray-700">Longitude Coordinate:</label>
             <input
               id="longitude"
-              type="number"  // שינוי ל-type number
+              type="number"
               value={longitudeCoordinate}
-              onChange={(event) => setLongitudeCoordinate(Number(event.target.value) || 0)}  // המרה למספר
+              onChange={(event) => setLongitudeCoordinate(Number(event.target.value) || 0)}
               required
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-
-          <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0 mt-4">
-            <button
-              type="button"
-              className="w-full sm:w-1/2 bg-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-400 transition duration-200"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
+          <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
             <button
               type="submit"
-              className="w-full sm:w-1/2 bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-200"
+              className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300"
             >
-              Submit
+              Save
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full sm:w-auto px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-300"
+            >
+              Cancel
             </button>
           </div>
         </form>
@@ -131,3 +128,4 @@ const PopUpCardCreateSite: React.FC<PopUpCardCreateSiteProps> = ({ onClose, setL
 };
 
 export default PopUpCardCreateSite;
+  

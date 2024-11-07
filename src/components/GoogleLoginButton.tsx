@@ -1,8 +1,8 @@
 import { useGoogleLogin } from '@react-oauth/google';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkToken } from '../server/app';
 import { FcGoogle } from "react-icons/fc";
+import { useState, useEffect } from 'react';
 
 const GoogleLoginButton = () => {
     const navigate = useNavigate();
@@ -12,9 +12,9 @@ const GoogleLoginButton = () => {
         onSuccess: async (tokenResponse) => {
             const token = tokenResponse.access_token;
             try {
-                const data = await sendToken(token);
+                const data = await checkToken(token);
                 if (data.email) {
-                    setEmail(data.email); // שמירת האימייל במצב
+                    setEmail(data.email); // שמירת המייל במצב
                     navigate('/users');
                 }
             } catch (err) {
@@ -26,14 +26,11 @@ const GoogleLoginButton = () => {
         },
     });
 
-    const sendToken = async (token: string) => {
-        try {
-            const response = await checkToken(token);
-            return response;
-        } catch (err) {
-            throw err;
+    useEffect(() => {
+        if (email) {
+            console.log("The user connected with the email: ", email);
         }
-    };
+    }, [email]); 
 
     return (
         <div className="flex justify-center mt-6 w-full">
