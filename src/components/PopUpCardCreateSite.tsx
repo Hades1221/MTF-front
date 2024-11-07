@@ -12,8 +12,9 @@ interface PopUpCardCreateSiteProps {
 const PopUpCardCreateSite: React.FC<PopUpCardCreateSiteProps> = ({ onClose, setLoadSite, loadSite, x, y }) => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
-  const [latitudeCoordinate, setLatitudeCoordinate] = useState<string>(x.toString());
-  const [longitudeCoordinate, setLongitudeCoordinate] = useState<string>(y.toString());
+  const [latitudeCoordinate, setLatitudeCoordinate] = useState<number>(x);
+  const [longitudeCoordinate, setLongitudeCoordinate] = useState<number>(y);
+
 
   const popUpRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +41,7 @@ const PopUpCardCreateSite: React.FC<PopUpCardCreateSiteProps> = ({ onClose, setL
     const siteData = {
       name,
       address,
-      coordinates: [parseFloat(longitudeCoordinate), parseFloat(latitudeCoordinate)],
+      coordinates: [longitudeCoordinate, latitudeCoordinate],
       creationDate: new Date(),
       lastUpdated: null,
     };
@@ -86,26 +87,28 @@ const PopUpCardCreateSite: React.FC<PopUpCardCreateSiteProps> = ({ onClose, setL
           </div>
           <div className="mb-4">
             <label htmlFor="latitude" className="block text-sm font-medium text-gray-700">Latitude Coordinate:</label>
-            <input 
+            <input
               id="latitude"
-              type="text"
+              type="number"  // שינוי ל-type number
               value={latitudeCoordinate}
-              onChange={(event) => setLatitudeCoordinate(event.target.value)}
+              onChange={(event) => setLatitudeCoordinate(Number(event.target.value) || 0)}  // המרה למספר
               required
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
+
           <div className="mb-4">
             <label htmlFor="longitude" className="block text-sm font-medium text-gray-700">Longitude Coordinate:</label>
             <input
               id="longitude"
-              type="text"
+              type="number"  // שינוי ל-type number
               value={longitudeCoordinate}
-              onChange={(event) => setLongitudeCoordinate(event.target.value)}
+              onChange={(event) => setLongitudeCoordinate(Number(event.target.value) || 0)}  // המרה למספר
               required
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
+
           <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0 mt-4">
             <button
               type="button"

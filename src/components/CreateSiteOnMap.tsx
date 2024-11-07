@@ -41,9 +41,10 @@ const CreateSitePopup: React.FC<PopupProps> = ({ onClose, position, setLoadSite,
           onClose={() => setShowCartPopup(false)}
           loadSite={loadSite}
           setLoadSite={setLoadSite}
-          x={position?.x}
-          y={position?.y}
+          x={position?.x ?? 0}  
+          y={position?.y ?? 0}  
         />
+
       )}
     </div>
   );
